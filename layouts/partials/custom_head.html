@@ -471,7 +471,327 @@ p, span, div, li {
     text-shadow: none !important;
     visibility: visible !important;
 }
+
+/* ========================
+   BURGER MENU MOBILE
+   ======================== */
+
+/* Burger menu button - hidden by default */
+.burger-menu {
+    display: none;
+    background-color: #E53E3E;
+    border: 3px solid #E53E3E;
+    border-radius: 8px;
+    font-size: 2.5rem;
+    cursor: pointer;
+    padding: 1rem;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100001;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.4);
+    min-width: 60px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.burger-menu:hover {
+    background-color: #FF5757;
+    border-color: #FF5757;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(229, 62, 62, 0.6);
+}
+
+.burger-menu:active {
+    transform: scale(0.95);
+}
+
+/* Mobile navigation overlay */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100000;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav.active {
+    display: flex;
+}
+
+/* Mobile navigation menu items */
+.mobile-nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.mobile-nav-menu li {
+    margin: 1rem 0;
+}
+
+.mobile-nav-menu a {
+    display: block;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
+    padding: 1rem 2rem !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 25px !important;
+    background: transparent !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mobile-nav-menu a:hover {
+    background-color: #E53E3E !important;
+    border-color: #E53E3E !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Close button */
+.mobile-nav-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    font-size: 2.5rem;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.mobile-nav-close:hover {
+    background-color: #E53E3E;
+    border-color: #E53E3E;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.4);
+}
+
+.mobile-nav-close:active {
+    transform: scale(0.95);
+}
+
+/* Language switcher in mobile menu */
+.mobile-nav-languages {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.mobile-nav-languages a {
+    display: inline-block !important;
+    margin: 0 0.5rem !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 1rem !important;
+    border: 1px solid #ffffff !important;
+    border-radius: 15px !important;
+    background: transparent !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.mobile-nav-languages a:hover {
+    background-color: #E53E3E !important;
+    border-color: #E53E3E !important;
+    color: #ffffff !important;
+}
+
+/* Media queries for mobile behavior */
+@media (max-width: 768px) {
+    /* Show burger menu on mobile */
+    .burger-menu {
+        display: flex !important;
+    }
+    
+    /* Hide desktop navigation on mobile */
+    #site-languages {
+        display: none !important;
+    }
+    
+    /* Hide desktop menu buttons on mobile */
+    .btn.site-menu {
+        display: none !important;
+    }
+    
+    /* Hide desktop sticky navigation on mobile */
+    .fixed-nav {
+        display: none !important;
+    }
+    
+    /* Adjust header arrow position */
+    #header-arrow {
+        bottom: -80px !important;
+    }
+    
+    /* Adjust header content for mobile */
+    .hero-section {
+        padding-top: 4rem;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Show burger menu on tablet */
+    .burger-menu {
+        display: flex !important;
+    }
+    
+    /* Optionally hide some desktop navigation on tablet */
+    #site-languages {
+        display: none !important;
+    }
+    
+    .btn.site-menu {
+        display: none !important;
+    }
+}
+
+/* Desktop - ensure burger menu is hidden */
+@media (min-width: 1025px) {
+    .burger-menu {
+        display: none !important;
+    }
+    
+    .mobile-nav {
+        display: none !important;
+    }
+}
 </style>
+
+<script>
+// Burger menu functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Create burger menu button
+    const burgerButton = document.createElement('button');
+    burgerButton.className = 'burger-menu';
+    burgerButton.innerHTML = '☰';
+    burgerButton.setAttribute('aria-label', 'Menu');
+    document.body.appendChild(burgerButton);
+    
+    // Create mobile navigation overlay
+    const mobileNav = document.createElement('div');
+    mobileNav.className = 'mobile-nav';
+    
+    // Create close button
+    const closeButton = document.createElement('button');
+    closeButton.className = 'mobile-nav-close';
+    closeButton.innerHTML = '✕';
+    closeButton.setAttribute('aria-label', 'Fermer le menu');
+    closeButton.setAttribute('type', 'button');
+    
+    // Create mobile menu
+    const mobileMenu = document.createElement('ul');
+    mobileMenu.className = 'mobile-nav-menu';
+    
+    // Get navigation items from the desktop menu
+    const desktopMenuItems = document.querySelectorAll('.btn.site-menu');
+    desktopMenuItems.forEach(item => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = item.href;
+        a.textContent = item.textContent;
+        a.setAttribute('data-title-anchor', item.getAttribute('data-title-anchor'));
+        li.appendChild(a);
+        mobileMenu.appendChild(li);
+    });
+    
+    // Create language switcher for mobile
+    const languageDiv = document.createElement('div');
+    languageDiv.className = 'mobile-nav-languages';
+    
+    const desktopLanguages = document.querySelectorAll('#site-languages .btn-lang');
+    desktopLanguages.forEach(lang => {
+        const a = document.createElement('a');
+        a.href = lang.href;
+        a.textContent = lang.textContent;
+        languageDiv.appendChild(a);
+    });
+    
+    // Assemble mobile navigation
+    mobileNav.appendChild(closeButton);
+    mobileNav.appendChild(mobileMenu);
+    if (desktopLanguages.length > 0) {
+        mobileNav.appendChild(languageDiv);
+    }
+    
+    document.body.appendChild(mobileNav);
+    
+    // Event listeners
+    burgerButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileNav.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        console.log('Burger menu ouvert');
+    });
+    
+    closeButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileNav.classList.remove('active');
+        document.body.style.overflow = '';
+        console.log('Menu fermé');
+    });
+    
+    // Close mobile nav when clicking on menu items
+    mobileMenu.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A') {
+            mobileNav.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close mobile nav when clicking outside
+    mobileNav.addEventListener('click', function(e) {
+        if (e.target === mobileNav) {
+            mobileNav.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close mobile nav on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+            mobileNav.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 1024) {
+            mobileNav.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+});
+</script>
 
 <!-- Custom CSS via "custom.css"-file
      If you would rather place your custom CSS into
